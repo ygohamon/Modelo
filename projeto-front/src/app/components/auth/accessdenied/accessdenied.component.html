@@ -1,0 +1,26 @@
+<div [class]="'exception-body min-h-screen '+ (layoutService.config().colorScheme === 'light' ? 'layout-light':'layout-dark')"
+    style="background:var(--surface-ground)">
+    <div class="exception-container  min-h-screen flex align-items-center justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
+        style="
+    box-sizing: border-box;background:var(--exception-pages-image);background-repeat: no-repeat; background-size: contain;">
+        <div class="exception-panel text-center flex align-items-center justify-content-center flex-column"
+            style="margin-top: -200px;box-sizing: border-box;">
+            <h1 class="text-blue-500 mb-0" style="font-size: 140px;
+    font-weight: 900;text-shadow: 0 0 50px rgba(#0F8BFD, 0.2);">ACESSO</h1>
+            <h3 class="text-blue-700" style=" font-size: 80px;
+    font-weight: 900;
+    margin-top: -40px;
+    margin-bottom: 50px;">Negado</h3>
+            <p class="text-3xl" style="max-width: 320px;">Você não tem acesso para entrar nessa pagina.</p>
+            <button type="button" pButton label="Volte para a pagina principal" style=" margin-top: 50px;"
+                [routerLink]="['/']"></button>
+        </div>
+        <div class="exception-footer absolute align-items-center flex" style="bottom:60px">
+          <img [src]="'assets/layout/images/home/brasil.svg'"
+               class="login-logo" style=" width: 45px;" />
+          <span class="login-appname ml-3" style="font-size: 25px; font-weight: bolder">projeto</span>
+
+        </div>
+    </div>
+
+</div>

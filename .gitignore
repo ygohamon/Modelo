@@ -1,0 +1,10 @@
+
+projeto-front/src/environments/environment.ts
+projeto-front/src/environments/environment.prod.ts
+projeto-front/proxy.conf.json
+projeto-front/.env/production/front.env
+projeto-back/.env/back.env
+*.env
+/projeto-front/src/environments
+/projeto-back/.env
+/projeto-front/.env

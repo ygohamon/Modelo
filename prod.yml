@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  projeto-front:
+    container_name: projeto-front
+    build:
+      context: ./projeto-front/
+      dockerfile: ./compose/production/Dockerfile
+    image: projeto-front
+    depends_on:
+      - projeto-back
+    volumes:
+      - ./projeto-front/:/projeto-front
+    ports:
+      - "80:80"
+      - "443:443"
+    env_file:
+      - projeto-front/.env/production/front.env
+
+  projeto-back:
+    container_name: projeto-back
+    build:
+      context: ./projeto-back/
+      dockerfile: ./compose/production/Dockerfile
+    image: projeto-back
+    depends_on:
+      - apicache
+      - corecache
+    volumes:
+      - ./projeto-back/:/server
+    env_file:
+      - projeto-back/.env/back.env
+    ports:
+      - "4000:4000"
+    command: /start
+
+  apicache:
+    container_name: apicache
+    restart: always
+    build:
+      context: ./projeto-redis/
+      dockerfile: ./Dockerfile
+    ports:
+      - "16379:6379"
+
+  corecache:
+    container_name: corecache
+    restart: always
+    build:
+      context: ./projeto-redis/
+      dockerfile: ./Dockerfile
+    ports:
+      - "16380:6379"

@@ -1,0 +1,79 @@
+<p-toast></p-toast>
+<div
+  [class]="'login-body flex min-h-screen'+(layoutService.config().colorScheme === 'light' ? 'layout-light':'layout-dark')"
+>
+  <div class="login-image w-6 h-screen hidden md:block" style="max-width: 490px;">
+    <img
+      [src]="'assets/layout/images/pages/register-'+ (layoutService.config().colorScheme === 'dark' ? 'ondark' : 'onlight') + '.png'"
+      alt="atlantis" class=" h-screen w-full">
+  </div>
+  <div class="w-full" style="background:var(--surface-ground)">
+    <div
+      class="p-fluid min-h-screen bg-auto md:bg-contain bg-no-repeat text-center w-full flex align-items-center md:align-items-start justify-content-center flex-column bg-auto md:bg-contain bg-no-repeat"
+      style=" padding: 20% 10% 20% 10%;background:var(--exception-pages-image)">
+      <div class="flex flex-column">
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+          <div class="flex align-items-center mb-6 logo-container">
+            <img
+              [src]="'assets/layout/images/logo-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
+              class="login-logo" style=" width: 45px;"/>
+            <img
+              [src]="'assets/layout/images/appname-'+ (layoutService.config().colorScheme === 'light' ? 'dark' : 'light') + '.png'"
+              class="login-appname ml-3" style="width: 100px;"/>
+          </div>
+          <div class="form-container text-left" style="max-width: 320px; min-width: 270px;">
+            <h4 class="m-0 mb-2">Cadastro</h4>
+            <span class="p-input-icon-left">
+                <i class="pi pi-user"></i>
+                <input type="text" formControlName="nome" name="nome" autocomplete="off" pInputText placeholder="Nome"
+                       class="block mb-3" style="max-width: 320px; min-width: 270px;">
+              </span>
+            <span class="p-input-icon-left">
+                <i class="pi pi-id-card"></i>
+                <input type="text" formControlName="cpf" name="cpf" autocomplete="off" pInputText placeholder="CPF"
+                       class="block mb-3" style="max-width: 320px; min-width: 270px;" mask="000.000.000-00"
+                       [dropSpecialCharacters]="false">
+              </span>
+            <span class="p-input-icon-left">
+                <i class="pi pi-envelope"></i>
+                <input type="email" formControlName="email" name="email" autocomplete="off" pInputText
+                       placeholder="Email" class="block mb-3" style="max-width: 320px; min-width: 270px;">
+              </span>
+            <span class="p-input-icon-left">
+                <i class="pi pi-key"></i>
+                <input type="password" formControlName="senha" name="senha" autocomplete="off" pInputText
+                       placeholder="Senha" class="block mb-3" style="max-width: 320px; min-width: 270px;">
+            </span>
+            <div *ngIf="passwordStrength" style="margin-top: 1em; margin-bottom: 1em; width: 100%">
+              <small class="label password-count">
+                {{ passwordFeedback }}
+              </small>
+              <div class="strength-meter">
+                <div class="strength-meter-fill" [style.width]="(passwordStrength.score + 1) * 20 + '%'"
+                     [style.background]="getPasswordStrengthColor()"></div>
+              </div>
+            </div>
+          </div>
+          <div class="button-container mt-4 text-left" style="max-width: 320px; min-width: 270px;">
+            <div class="buttons flex align-items-center gap-3">
+              <button type="submit" pButton label="Enviar" class="block"
+                      style="max-width: 320px; margin-bottom: 32px;"></button>
+            </div>
+            <span class="font-medium text-600">Já possui uma cadastro? <a [routerLink]="['/auth/login']"
+                                                                          class="font-semibold cursor-pointer text-900 hover:text-primary transition-colors transition-duration-300">Login</a></span>
+          </div>
+        </form>
+      </div>
+
+      <div class="login-footer flex align-items-center absolute" style="bottom: 75px;">
+        <div class="flex align-items-center login-footer-logo-container pr-4 mr-4 border-right-1 surface-border">
+          <img src="assets/layout/images/logo-gray.png" class="login-footer-logo" style="width: 22px;"/>
+          <img src="assets/layout/images/appname-gray.png" class="login-footer-appname ml-2" style="  width: 45px;"/>
+        </div>
+        <span class="text-sm text-color-secondary mr-3">Copyright 2021</span>
+      </div>
+    </div>
+
+
+  </div>
+</div>

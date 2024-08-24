@@ -1,0 +1,43 @@
+#!/bin/sh
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+printf "\n\n"
+printf "####################################\n"
+printf "#     Instalando dependências      #\n"
+printf "####################################\n"
+printf "\n"
+npm install
+
+printf "\n"
+printf "#############################\n"
+printf "#   Inicializando o Front   #\n"
+printf "#############################\n"
+printf "#   Variáveis de ambiente   #\n"
+printf "#############################\n"
+printf "\n\n"
+
+export $(grep -v '^#' .env/local/front.env | xargs)
+cat .env/local/front.env
+
+printf "\n\n"
+printf "####################################\n"
+printf "# Criando arquivos environment.ts  #\n"
+printf "####################################\n"
+printf "\n"
+
+npm run build:env --force
+
+printf "\n"
+
+cat ./src/environments/environment.ts
+
+printf "\n\n"
+printf "#########################################\n"
+printf "# Compilando e servindo a aplicação...  #\n"
+printf "#########################################\n"
+printf "\n\n"
+
+ng serve --host 0.0.0.0 --port 8080 --proxy-config proxy.conf.json

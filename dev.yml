@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+    projeto-front:
+        container_name: projeto-front
+        build:
+            context: ./projeto-front/
+            dockerfile: ./compose/local/Dockerfile
+        image: projeto-front
+        depends_on:
+            - projeto-back
+        volumes:
+            - ./projeto-front/:/app
+        ports:
+            - "4200:4200"
+        command: /start
+
+    projeto-back:
+        container_name: projeto-back
+        build:
+            context: ./projeto-back/
+            dockerfile: ./compose/local/Dockerfile
+        image: projeto-back
+        volumes:
+            - ./projeto-back/:/server
+        env_file:
+            - projeto-back/.env/back.env
+        ports:
+            - "4000:4000"
+        depends_on:
+            - db
+        links:
+            - db
+        command: /start
+
+    db:
+        container_name: projeto-db
+        image: postgres:latest
+        volumes:
+            - ./data/db:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: asdqwezxc7
+            POSTGRES_DB: teste
+        ports:
+            - "5432:5432"
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
